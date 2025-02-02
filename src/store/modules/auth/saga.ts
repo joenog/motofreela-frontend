@@ -6,32 +6,49 @@ import Swal from 'sweetalert2';
 
 function* efetuarLoginSaga(payload: any): any {
   try {
-    yield call(axios.post, '/login-motoboy', {
-      email: payload.payload.loginRequest?.email,
-      password: payload.payload.loginRequest?.password,
-    });
-    const userResponse = yield call(axios.get, `/user-motoboy/searchForEmail/${payload.loginRequest}`)
-    const user = userResponse.data;
-    yield put(
-      actions.loginSuccess({
-        isLoggedIn: true,
-        user: {
-          id: user[0].id,
-          name: user[0].nome,
-          email: user[0].email,
-        },
-      }),
+    const { email } = payload.payload.loginRequest;
+    const password = payload.payload.loginRequest.password;
+
+    if (email && password) {
+      yield call(axios.post, '/login-motoboy', {
+        email: email,
+        password: password,
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please, fill all fields!',
+      });
+    }
+    const userResponse = yield call(
+      axios.get,
+      `/user-motoboy/searchForEmail/${email}`,
     );
-    Swal.fire({
-      icon: 'success',
-      title: 'sucesso!',
-      text: 'Você fez login com sucesso!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = '/';
-      }
-    });
+    const user = userResponse.data;
+    if (user) {
+      yield put(
+        actions.loginSuccess({
+          isLoggedIn: true,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          },
+        }),
+      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'You have successfully logged in!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '/';
+        }
+      });
+    }
   } catch (error: any) {
+    console.log(error);
     Swal.fire({
       icon: 'error',
       title: 'Oops!',
