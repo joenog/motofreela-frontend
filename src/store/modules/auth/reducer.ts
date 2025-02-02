@@ -1,4 +1,4 @@
-import * as actionsTypes from './actionsTypes'
+import * as actionsTypes from './actionsTypes';
 
 const initialState: LoginState = {
   isLoggedin: {
@@ -9,8 +9,8 @@ const initialState: LoginState = {
 };
 
 const reducer = (
-    state: LoginState = initialState,
-    action: LoginAction,
+  state: LoginState = initialState,
+  action: LoginAction,
 ): LoginState => {
   switch (action.type) {
     case actionsTypes.LOGIN_REQUEST: {
@@ -36,6 +36,7 @@ const reducer = (
     }
 
     case actionsTypes.LOGIN_SUCCESS: {
+      console.log('Reducer', action.payload);
       return {
         ...state,
         loading: false,

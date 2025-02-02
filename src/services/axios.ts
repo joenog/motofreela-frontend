@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'https://api-motofrela.vercel.app/',
-    withCredentials: true,
+  baseURL: 'http://localhost:9001/',
+  withCredentials: true,
 });
