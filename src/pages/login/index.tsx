@@ -14,6 +14,7 @@ export function Login() {
   const dispatch: Dispatch<any> = useDispatch();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [toogleStatus, setToogleStatus] = useState<boolean>(false);
   const isLoggedIn = useSelector(
     (state: any) => state.login.isLoggedin.isLoggedIn,
   );
@@ -51,6 +52,7 @@ export function Login() {
           loginRequest: {
             email,
             password,
+            business: toogleStatus,
           },
         }),
       );
@@ -110,6 +112,20 @@ export function Login() {
               <a href="#">Forgout password</a>
             </div>
           </form>
+        </div>
+
+        <div className="toggle-container">
+          <div
+            className={`toggle ${toogleStatus ? 'on' : 'off'}`}
+            id="toogle"
+            onClick={() => setToogleStatus(!toogleStatus)}
+          >
+            <div className="button"></div>
+          </div>
+
+          <span className="toggle-text">
+            {toogleStatus ? 'Business' : 'Motoboy'}
+          </span>
         </div>
       </div>
     </>

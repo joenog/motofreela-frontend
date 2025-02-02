@@ -4,6 +4,7 @@
   font-weight: 500;
   font-style: normal;
   font-variation-settings: 100px;
+  margin: 0;
 }
 
 .login {
@@ -11,6 +12,7 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
   background-color: #eee;
 }
@@ -99,4 +101,65 @@
 
 .login .container .buttons-controls a {
   color: #2c2c2c;
+}
+
+.toggle {
+  width: 70px;
+  height: 35px;
+  background-color: #ccc;
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transição para a cor de fundo */
+}
+
+.button {
+  width: 25px;
+  height: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  transition: transform 0.3s ease; /* Transição para o movimento do botão */
+}
+
+ .toggle.on {
+  background-color: #65558F;
+}
+
+.toggle.on .button {
+  transform: translateX(35px);
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: flex-end;
+  width: 500px;
+  box-sizing: border-box;
+  padding-right: 24px;
+}
+
+.toggle-text {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.login .container{
+    width: 450px;
+}
+
+
+@media (max-width: 400px) {
+  .login .container {
+    width: 95%; /* Largura maior em telas muito pequenas */
+    padding: 16px; /* Padding menor em telas pequenas */
+  }
+
+  .toggle-container {
+    justify-content: flex-end;
+    width: 350px;
+  }
 }

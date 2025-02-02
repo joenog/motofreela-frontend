@@ -28,6 +28,7 @@ const reducer = (
             id: 0,
             name: '',
             email: '',
+            business: false,
           },
         },
         loading: false,
