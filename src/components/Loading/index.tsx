@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import ClipLoader from 'react-spinners/ClipLoader';
 
-import '../../styles/loading.css';
+import './assets/styles/loading.css';
 
 export default function Loading({ isLoading }: { isLoading: boolean }) {
   // eslint-disable-next-line react/jsx-no-useless-fragment

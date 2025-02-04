@@ -1,0 +1,107 @@
+.esqueci-minha-senha {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #eee;
+}
+
+.esqueci-minha-senha .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 6px;
+  width: 390px;
+  height: auto;
+}
+
+.esqueci-minha-senha .container h1 {
+  margin-bottom: 25px;
+}
+
+.esqueci-minha-senha .container input {
+  width: 75%;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.esqueci-minha-senha .container .btn-black {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #2c2c2c;
+  color: #f5f5f5;
+  border: 1px solid #2c2c2c;
+  border-radius: 6px;
+  margin: 0 auto;
+  width: 80%;
+  height: 40px;
+  cursor: pointer;
+}
+
+.esqueci-minha-senha .container .btn-white {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #2c2c2c;
+  border: 1px solid #2c2c2c;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  margin: 0 auto;
+  width: 80%;
+  height: 40px;
+  cursor: pointer;
+}
+
+.esqueci-minha-senha .container .btn-black:hover {
+  background-color: #1f1f1f;
+}
+
+.esqueci-minha-senha .container .btn-black:active {
+  background-color: #141414;
+}
+
+.esqueci-minha-senha .container .btn-white:hover {
+  background-color: #f0f0f0;
+}
+
+.esqueci-minha-senha .container .btn-white:active {
+  background-color: #ebebeb
+}
+
+.esqueci-minha-senha .container .buttons-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 450px) {
+  .esqueci-minha-senha .container {
+    width: 85%;
+    padding: 16px;
+  }
+
+  .esqueci-minha-senha .container h1 {
+    font-size: 24px;
+  }
+
+  .esqueci-minha-senha .container input {
+    height: 36px;
+    width: 75%;
+  }
+}

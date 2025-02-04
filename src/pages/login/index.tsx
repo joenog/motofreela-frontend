@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import '../../styles/login.css';
+import './assets/styles/login.css';
 
 import logoGoogle from '../../assets/images/google_img.png';
 import * as actionsAuth from '../../store/modules/auth/actionsCreatores';
@@ -32,7 +32,7 @@ export function Login() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Please, fill all fields!',
+        text: 'Por favor, preencha todos os campos!',
       });
       return;
     }
@@ -41,7 +41,7 @@ export function Login() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Incorrect password!',
+        text: 'Senha incorreta!',
       });
       return;
     }
@@ -61,19 +61,19 @@ export function Login() {
         return Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: error.response.data.errors || 'Incorrect email or password!',
+          text: error.response.data.errors || 'E-mail ou senha incorretos!',
         });
       } else if (error.response.status === 500) {
         return Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'An unexpected error occurred',
+          text: 'Ocorreu um erro inesperado!',
         });
       }
       return Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data.erros || 'An unexpected error occurred',
+        text: error.response.data.erros || 'Ocorreu um erro inesperado!',
       });
     }
   }
@@ -88,28 +88,28 @@ export function Login() {
             <input
               type="email"
               name="email"
-              placeholder="Ex: youremail@address.com"
+              placeholder="Ex: seuemail@endereco.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
-            <label htmlFor="passwor">Password</label>
+            <label htmlFor="password">Senha:</label>
             <input
               type="password"
               name="password"
-              placeholder="Your password"
+              placeholder="Sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
 
             <div className="buttons-controls">
               <button type="submit" className="btn-black">
-                Sign In
+                Entrar
               </button>
               <button type="button" className="btn-white">
-                <img src={logoGoogle} /> With Google
+                <img src={logoGoogle} /> Continuar com o Google
               </button>
-              <a href="#">Forgout password</a>
+              <a href="/login/esqueci-minha-senha">Esqueci minha senha</a>
             </div>
           </form>
         </div>
@@ -124,7 +124,7 @@ export function Login() {
           </div>
 
           <span className="toggle-text">
-            {toogleStatus ? 'Business' : 'Motoboy'}
+            {toogleStatus ? 'Empresa' : 'Entregador'}
           </span>
         </div>
       </div>

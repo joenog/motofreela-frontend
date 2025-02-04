@@ -1,0 +1,79 @@
+.recuperar-senha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Use min-height para garantir altura mínima */
+  background-color: #eee;
+  padding: 20px; /* Adicione padding para melhor responsividade */
+}
+
+.recuperar-senha .container {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 6px;
+  width: 390px; /* Largura fixa, mas responsiva com media queries */
+  max-width: 90%; /* Largura máxima para evitar quebras em telas menores */
+  box-sizing: border-box; /* Inclui padding e borda na largura */
+}
+
+.recuperar-senha .container h1 {
+  margin-bottom: 25px;
+  text-align: center; /* Centraliza o título */
+}
+
+.recuperar-senha .container label {
+  display: block; /* Labels em bloco para melhor organização */
+  margin-bottom: 5px; /* Espaçamento entre label e input */
+  text-align: left; /* Alinha labels à esquerda */
+}
+
+.recuperar-senha .container input,
+.recuperar-senha .container .btn-black {
+  width: 100%; /* Ocupa toda a largura do container */
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 10px;
+  margin-bottom: 15px; /* Espaçamento entre os elementos */
+  box-sizing: border-box; /* Inclui padding e borda na largura */
+}
+
+.recuperar-senha .container .btn-black {
+  display: flex; /* Para centralizar o texto no botão */
+  justify-content: center;
+  align-items: center;
+  background-color: #2c2c2c;
+  color: #f5f5f5;
+  border: 1px solid #2c2c2c;
+  cursor: pointer;
+}
+
+/* Estilos de hover e active (permanecem os mesmos) */
+.recuperar-senha .container .btn-black:hover {
+  background-color: #1f1f1f;
+}
+.recuperar-senha .container .btn-black:active {
+  background-color: #141414;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 400px) {
+  .recuperar-senha .container {
+    width: 95%; /* Largura maior em telas menores */
+    padding: 16px;
+  }
+
+  .recuperar-senha .container h1 {
+    font-size: 24px;
+  }
+
+  .recuperar-senha .container input,
+  .recuperar-senha .container .btn-black {
+    height: 36px; /* Altura ajustada para telas menores */
+    font-size: 14px; /* Tamanho da fonte ajustado */
+  }
+
+  .recuperar-senha {
+    padding: 10px; /* Padding menor em telas menores */
+  }
+}
