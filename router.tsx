@@ -5,6 +5,7 @@ import { Login } from './src/pages/login';
 import { PrivateRoute } from './src/components/PrivateRoute';
 import { EsqueciMinhaSenha } from './src/pages/login/esqueci-minha-senha';
 import { RecuperarSenha } from './src/pages/login/recuperar-senha';
+import { Register } from './src/pages/register';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
     path: '/login/recuperar-senha',
     element: <RecuperarSenha />,
   },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+
   {
     element: <Layout />,
     children: [

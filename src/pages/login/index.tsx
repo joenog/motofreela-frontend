@@ -9,6 +9,7 @@ import './assets/styles/login.css';
 import logoGoogle from '../../assets/images/google_img.png';
 import * as actionsAuth from '../../store/modules/auth/actionsCreatores';
 import Loading from '../../components/Loading';
+import { FloatingMenu } from '../../components/floartingMenu';
 
 export function Login() {
   const dispatch: Dispatch<any> = useDispatch();
@@ -128,6 +129,7 @@ export function Login() {
           </span>
         </div>
       </div>
+      <FloatingMenu />
     </>
   );
 }
