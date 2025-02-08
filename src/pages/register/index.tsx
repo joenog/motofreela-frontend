@@ -1,8 +1,6 @@
 import { FormEvent, useState } from 'react';
 import Loading from '../../components/Loading';
-import { FloatingMenu } from '../../components/floartingMenu';
 import Swal from 'sweetalert2';
-//import styles from './style.module.css';
 
 export function Register() {
   const [toogleStatus, setToogleStatus] = useState<boolean>(false);
@@ -15,6 +13,11 @@ export function Register() {
     confirmPassword: string;
     cnpj?: string;
     cpf?: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+    numberHome: string;
+    zipCode: string;
   }
 
   const [userRegister, setUserRegister] = useState<UserRegister>({
@@ -24,6 +27,11 @@ export function Register() {
     confirmPassword: '',
     cnpj: '',
     cpf: '',
+    city: '',
+    neighborhood: '',
+    street: '',
+    numberHome: '',
+    zipCode: '',
   });
 
   async function handleSubmit(e: FormEvent) {
@@ -32,11 +40,28 @@ export function Register() {
     const regex =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+\-=[\]{};':",\\|,.<>/?]).{6,}$/;
 
-    if (!userRegister.email || !userRegister.password) {
+    if (
+      !userRegister.email ||
+      !userRegister.name ||
+      !userRegister.cpf ||
+      !userRegister.city ||
+      !userRegister.neighborhood ||
+      !userRegister.street ||
+      !userRegister.numberHome ||
+      !userRegister.zipCode
+    ) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Por favor, preencha todos os campos!',
+      });
+    }
+    // VERIFICAR COM CNPJ MODO EMPRESA ATIVO
+    if (toogleStatus && !userRegister.cnpj) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Porfavor, preencha o campo CNPJ',
       });
       return;
     }
@@ -46,6 +71,16 @@ export function Register() {
         icon: 'error',
         title: 'Oops...',
         text: 'A senha precisa ter no mínimo 6 caracteres, uma letra maiúscula e um símbolo!',
+      });
+      return;
+    }
+
+    //CONFIRM PASSWORD
+    if (userRegister.confirmPassword !== userRegister.password) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops',
+        text: 'As duas senhas precisam ser identicas...',
       });
       return;
     }
@@ -70,12 +105,11 @@ export function Register() {
                 }))
               }
             />
-
             <label htmlFor="name">Nome</label>
             <input
               type="text"
               name="name"
-              placeholder="Nome da sua empresa"
+              placeholder={toogleStatus ? 'Nome da sua empresa' : 'Seu nome'}
               value={userRegister.name}
               onChange={(e) =>
                 setUserRegister((prev) => ({
@@ -84,7 +118,6 @@ export function Register() {
                 }))
               }
             />
-
             {toogleStatus ? (
               <>
                 <label htmlFor="cpf">CNPJ</label>
@@ -92,7 +125,7 @@ export function Register() {
                   type="text"
                   name="cnpj"
                   placeholder="Digite seu CNPJ"
-                  value={userRegister.cpf}
+                  value={userRegister.cnpj}
                   onChange={(e) =>
                     setUserRegister((prev) => ({
                       ...prev,
@@ -118,8 +151,72 @@ export function Register() {
                 />
               </>
             )}
-
-            <label htmlFor="password">Password</label>
+            <label htmlFor="city">Cidade</label>
+            <input
+              type="text"
+              name="city"
+              placeholder="Ex: São Paulo"
+              value={userRegister.city}
+              onChange={(e) =>
+                setUserRegister((prev) => ({
+                  ...prev,
+                  city: e.target.value,
+                }))
+              }
+            />
+            <label htmlFor="neighborhood">Bairro</label>
+            <input
+              type="text"
+              name="neighborhood"
+              placeholder="Ex: São Miguel"
+              value={userRegister.neighborhood}
+              onChange={(e) =>
+                setUserRegister((prev) => ({
+                  ...prev,
+                  neighborhood: e.target.value,
+                }))
+              }
+            />
+            <label htmlFor="street">Rua</label>
+            <input
+              type="text"
+              name="street"
+              placeholder="Ex: Rua Euclide Pacheco"
+              value={userRegister.street}
+              onChange={(e) =>
+                setUserRegister((prev) => ({
+                  ...prev,
+                  street: e.target.value,
+                }))
+              }
+            />
+            <label htmlFor="numberHome">Número</label>
+            <input
+              type="text"
+              name="numberHome"
+              placeholder="Ex: 44"
+              value={userRegister.numberHome}
+              onChange={(e) =>
+                setUserRegister((prev) => ({
+                  ...prev,
+                  numberHome: e.target.value,
+                }))
+              }
+            />
+            <label htmlFor="zipCode">CEP</label>
+            <input
+              type="text"
+              name="zipCode"
+              placeholder="Ex: 0000 000"
+              value={userRegister.zipCode}
+              onChange={(e) =>
+                setUserRegister((prev) => ({
+                  ...prev,
+                  zipCode: e.target.value,
+                }))
+              }
+            />
+            <label htmlFor="password">Senha</label>
             <input
               type="password"
               name="Password"
@@ -132,13 +229,12 @@ export function Register() {
                 }))
               }
             />
-
-            <label htmlFor="password2">Password</label>
+            <label htmlFor="confirmPassword">Confime a senha</label>
             <input
               type="password"
-              name="Password"
+              name="confirmPassword"
               placeholder="Insira sua senha novamente"
-              value={userRegister.password}
+              value={userRegister.confirmPassword}
               onChange={(e) =>
                 setUserRegister((prev) => ({
                   ...prev,
@@ -151,7 +247,6 @@ export function Register() {
             </button>
           </form>
         </div>
-
         <div className="toggle-container">
           <div
             className={`toggle ${toogleStatus ? 'on' : 'off'}`}

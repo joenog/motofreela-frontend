@@ -110,6 +110,7 @@ export function Login() {
               <button type="button" className="btn-white">
                 <img src={logoGoogle} /> Continuar com o Google
               </button>
+
               <a href="/login/esqueci-minha-senha">Esqueci minha senha</a>
             </div>
           </form>
