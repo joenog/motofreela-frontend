@@ -6,6 +6,7 @@ import { PrivateRoute } from './src/components/PrivateRoute';
 import { EsqueciMinhaSenha } from './src/pages/login/esqueci-minha-senha';
 import { RecuperarSenha } from './src/pages/login/recuperar-senha';
 import { Register } from './src/pages/register';
+import { NotFound } from './src/pages/notFound';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: '*',
+    element: <NotFound />
   },
 
   {

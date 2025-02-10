@@ -1,0 +1,47 @@
+main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ee2222;
+  width: 100%;
+  height: 70.95vh;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ee2222;
+  height: 21vh;
+}
+
+header > img {
+  max-width: 202px;
+}
+
+.btn-home,
+button {
+  font-size: 1.1em;
+  padding: 0px 60px;
+  box-shadow:
+    2px 2px 2px rgba(128, 128, 128, 0.115),
+    -2px -2px -2px rgba(128, 128, 128, 0.175);
+}
+
+.imgMoto {
+  height: 142px;
+  align-self: flex-end;
+}
+
+.footer {
+  font-size: .8em;
+  height: 8vh;
+  color: white;
+  text-align: center;
+  background-color: #ee2222;
+}
+
+.sobre {
+  color: #fff;
+}
