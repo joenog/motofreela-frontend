@@ -1,0 +1,29 @@
+.container {
+    background-color: #EEEEEE;
+    display: flex;
+}
+
+.imgError {
+    height: 143px;
+    margin-top: 40px;
+}
+
+h2 {
+    color: #1F1F1F;
+    margin: 0;
+    text-align: center;
+}
+
+.link {
+    background-color: #1F1F1F;
+    color: #fff;
+    border-radius: 6px;
+    padding: 7px 17px;
+    box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.110),
+            2px 2px 2px rgba(0, 0, 0, 0.110);
+}
+
+footer {
+    background-color: #EEEEEE;
+    height: 29vh;
+}

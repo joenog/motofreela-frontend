@@ -36,15 +36,20 @@ export function Home() {
         </div>
 
         <div className="btn-home">
-          <button className="btn-black">Para Empresas</button>
-          <button className="btn-white">Para Motoboys</button>
+          <Link to={'/login?userType=business'}>
+            <button className="btn-black">Para empresa</button>
+          </Link>
+
+          <Link to={'/login?userType=motoboy'}>
+            <button className="btn-white">Para entregador</button>
+          </Link>
         </div>
       </main>
       <footer className={styles.footer}>
-        <p>Todos os direitos reservados | © Motoca</p>
+        <p>Todos os direitos reservados. | © Motoca </p>
         <p>
           <Link className={styles.sobre} to={'/*'}>
-            | Sobre |
+            Sobre
           </Link>
         </p>
       </footer>

@@ -30,7 +30,7 @@ button {
 }
 
 .imgMoto {
-  height: 142px;
+  height: 143px;
   align-self: flex-end;
 }
 
@@ -44,4 +44,5 @@ button {
 
 .sobre {
   color: #fff;
+  text-decoration: underline;
 }

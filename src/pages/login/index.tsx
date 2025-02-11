@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Dispatch } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import './assets/styles/login.css';
@@ -13,9 +13,14 @@ import { FloatingMenu } from '../../components/floartingMenu';
 
 export function Login() {
   const dispatch: Dispatch<any> = useDispatch();
+  const [searchParams] = useSearchParams();
+
+  console.log(searchParams.get('userType'));
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [toogleStatus, setToogleStatus] = useState<boolean>(false);
+  const [toogleStatus, setToogleStatus] = useState<boolean>(
+    searchParams.get('userType') === 'business' ? true : false,
+  );
   const isLoggedIn = useSelector(
     (state: any) => state.login.isLoggedin.isLoggedIn,
   );
