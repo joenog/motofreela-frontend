@@ -7,6 +7,7 @@ import { EsqueciMinhaSenha } from './src/pages/login/esqueci-minha-senha';
 import { RecuperarSenha } from './src/pages/login/recuperar-senha';
 import { Register } from './src/pages/register';
 import { NotFound } from './src/pages/notFound';
+import { IndexMotoboy } from './src/pages/index (motoboy)';
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,10 @@ const router = createBrowserRouter([
     children: [
       {
         element: <PrivateRoute />,
-        children: [{ path: '/', element: <Home /> }],
+        children: [
+          { path: '/', element: <Home /> },
+          { path: '/index-motoboy', element: <IndexMotoboy /> },
+        ],
       },
     ],
   },

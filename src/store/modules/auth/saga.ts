@@ -20,7 +20,7 @@ function* efetuarLoginSaga(payload: any): any {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Please, fill all fields!',
+          text: 'Por favor, preencha todos os campos!',
         });
       }
       const userResponse = yield call(
@@ -42,11 +42,11 @@ function* efetuarLoginSaga(payload: any): any {
         );
         Swal.fire({
           icon: 'success',
-          title: 'Success!',
-          text: 'You have successfully logged in!',
+          title: 'Sucesso!',
+          text: 'Você logou com sucesso!',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = '/';
+            window.location.href = '/index-motoboy';
           }
         });
       }
@@ -60,7 +60,7 @@ function* efetuarLoginSaga(payload: any): any {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Please, fill all fields!',
+          text: 'Por favor, preencha todos os campos!',
         });
       }
       const userResponse = yield call(
@@ -86,7 +86,7 @@ function* efetuarLoginSaga(payload: any): any {
           text: 'You have successfully logged in!',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = '/';
+            window.location.href = '/index-business';
           }
         });
       }
