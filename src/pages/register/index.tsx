@@ -1,10 +1,11 @@
 import { FormEvent, useState } from 'react';
 import Loading from '../../components/Loading';
 import Swal from 'sweetalert2';
+import axios from '../../services/axios';
 
 export function Register() {
   const [toogleStatus, setToogleStatus] = useState<boolean>(false);
-  //const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   interface UserRegister {
     email: string;
@@ -43,7 +44,6 @@ export function Register() {
     if (
       !userRegister.email ||
       !userRegister.name ||
-      !userRegister.cpf ||
       !userRegister.city ||
       !userRegister.neighborhood ||
       !userRegister.street ||
@@ -55,6 +55,7 @@ export function Register() {
         title: 'Oops...',
         text: 'Por favor, preencha todos os campos!',
       });
+      return;
     }
     // VERIFICAR COM CNPJ MODO EMPRESA ATIVO
     if (toogleStatus && !userRegister.cnpj) {
@@ -62,6 +63,15 @@ export function Register() {
         icon: 'error',
         title: 'Oops...',
         text: 'Porfavor, preencha o campo CNPJ',
+      });
+      return;
+    }
+
+    if (toogleStatus && !validarCNPJ(userRegister.cnpj as string)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'O CNPJ não existe!',
       });
       return;
     }
@@ -84,11 +94,99 @@ export function Register() {
       });
       return;
     }
+
+    try {
+      setIsLoading(true);
+      if (toogleStatus) {
+        await axios.post('user-business', userRegister);
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso',
+          text: 'Sua conta foi criada com sucesso!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            document.location = '/login?userType=business';
+            setIsLoading(false);
+          }
+        });
+        setIsLoading(false);
+      }
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      if (error.response.status === 400) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.errors || '',
+        });
+      } else if (error.response.status === 500) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'O correu um erro inesperado!',
+        });
+      }
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'O correu um erro inesperado!',
+      });
+    }
+  }
+
+  function validarCNPJ(cnpj: string): boolean {
+    cnpj = cnpj.replace(/\D/g, '');
+
+    if (cnpj.length !== 14) {
+      return false;
+    }
+
+    if (/^(\d)\1{13}$/.test(cnpj)) {
+      return false;
+    }
+
+    let tamanho = cnpj.length - 2;
+    let numeros = cnpj.substring(0, tamanho);
+    const digitos = cnpj.substring(tamanho);
+    let soma = 0;
+    let pos = tamanho - 7;
+
+    for (let i = tamanho; i >= 1; i--) {
+      soma += parseFloat(numeros.charAt(tamanho - i)) * pos--;
+      if (pos < 2) {
+        pos = 9;
+      }
+    }
+
+    let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+    if (resultado !== parseInt(digitos.charAt(0))) {
+      return false;
+    }
+
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0, tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+
+    for (let i = tamanho; i >= 1; i--) {
+      soma += parseFloat(numeros.charAt(tamanho - i)) * pos--;
+      if (pos < 2) {
+        pos = 9;
+      }
+    }
+
+    resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+    if (resultado !== parseInt(digitos.charAt(1))) {
+      return false;
+    }
+
+    return true;
   }
 
   return (
     <>
-      <Loading isLoading={false} />
+      <Loading isLoading={isLoading} />
       <div className="register">
         <div className="container">
           <form onSubmit={handleSubmit}>
