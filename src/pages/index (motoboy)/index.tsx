@@ -1,13 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './assets/styles/style.css';
 import { State } from '../../types/state';
-import {
-  FaGift,
-  FaImage,
-  FaMoneyBillWave,
-  FaStar,
-  FaStarHalf,
-} from 'react-icons/fa';
+import { FaGift, FaImage, FaMoneyBillWave, FaStar } from 'react-icons/fa';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md';
 import { useEffect, useState } from 'react';
@@ -20,11 +14,14 @@ import Loading from '../../components/Loading';
 import Swal from 'sweetalert2';
 import axios from '../../services/axios';
 import Vacancy from '../../types/vacancy';
+import UserBusiness from '../../types/userBusiness';
 export function IndexMotoboy() {
   const dispatch: Dispatch<any> = useDispatch();
   const user = useSelector((state: State) => state.login.isLoggedin.user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [vacancy, setVacancy] = useState<Vacancy[]>([]);
+  const [business, setBusiness] = useState<UserBusiness[]>([]);
+  const [seeDetails, setSeeDetails] = useState<boolean[]>([]);
 
   useEffect(() => {
     async function getData() {
@@ -32,8 +29,12 @@ export function IndexMotoboy() {
       if (user.business) return <Navigate to={'/index-business'} />;
       try {
         setIsLoading(true);
-        const response = await axios.get(`/vacancy`);
-        setVacancy(response.data);
+        const [responseVacancy, responseBusiness] = await Promise.all([
+          axios.get('/vacancy'),
+          axios.get('/user-business/readAll'),
+        ]);
+        setVacancy(responseVacancy.data);
+        setBusiness(responseBusiness.data);
         setIsLoading(false);
       } catch (error: any) {
         if (error.response.status === 401) {
@@ -55,6 +56,62 @@ export function IndexMotoboy() {
     getData();
   }, [dispatch, user]);
 
+  function filtrarBusiness(
+    bussines_id: number,
+    business: UserBusiness[] | undefined,
+  ): UserBusiness | undefined {
+    if (!business) return undefined;
+    const businessFiltrado = business.find(
+      (business) => business.id === bussines_id,
+    );
+    return businessFiltrado;
+  }
+
+  async function applyVacancy(vacancy_id: number) {
+    if (!vacancy_id) return;
+
+    try {
+      setIsLoading(true);
+      await axios.post(`/candidatos/`, {
+        vacancy_id,
+        motoboy_id: user?.id,
+      });
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: 'Candidatura enviada com sucesso!',
+      });
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      if (error.response.status === 401) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Por favor, faça login novamente!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            return dispatch(actionsAuth.loginFailure('Faça login novamente!'));
+          }
+        });
+      } else if (error.response.status === 400) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.errors || 'Ocorreu um erro inesperado!',
+        });
+      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.errors || 'Ocorreu um erro inesperado!',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <div className="index-motoboy">
       <Loading isLoading={isLoading} />
@@ -62,23 +119,32 @@ export function IndexMotoboy() {
         <div className="vacancy-container" key={vacancy.id}>
           <div className="info-restaurant">
             <div className="logo-restaurant">
-              <FaImage size={150} />
+              {filtrarBusiness(vacancy.business_id, business)?.photoURL ? (
+                <img
+                  src={filtrarBusiness(vacancy.business_id, business)?.photoURL}
+                  alt="logo-restaurant"
+                />
+              ) : (
+                <FaImage size={150} />
+              )}
             </div>
-            <p>Restaurant-name</p>
+            <p>{filtrarBusiness(vacancy.business_id, business)?.name}</p>
             <div className="rating-restaurant">
               <span>
-                <FaStar size={15} />
-                <FaStar size={15} />
-                <FaStar size={15} />
-                <FaStar size={15} />
-                <FaStarHalf size={15} />
+                {Array.from({
+                  length:
+                    filtrarBusiness(vacancy.business_id, business)?.stars || 0,
+                }).map((_, i) => (
+                  <FaStar key={i} size={15} />
+                ))}
               </span>
             </div>
 
             <div className="description-vacancy">
               <p className="title-vacancy">
                 <MdLocationOn size={15} />
-                Guarulhos-SP
+                {filtrarBusiness(vacancy.business_id, business)?.city} -{' '}
+                {filtrarBusiness(vacancy.business_id, business)?.state}
               </p>
 
               <p className="time">
@@ -94,11 +160,38 @@ export function IndexMotoboy() {
               <p className="benefits">
                 <FaGift size={15} /> Refeição no local
               </p>
+
+              {seeDetails[vacancy.id] ? (
+                <p className="description">
+                  <span style={{ fontWeight: 'bold' }}>Descrição:</span>
+                  <br />
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Cumque quis doloribus laudantium recusandae excepturi
+                  temporibus deleniti, minima voluptates sequi similique commodi
+                  doloremque nam a dolore provident consequuntur quod porro
+                  iste!
+                </p>
+              ) : null}
             </div>
 
             <div className="buttons-controls">
-              <button className="btn-white">Detalhes</button>
-              <button className="btn-black">Candidatar</button>
+              <button
+                className="btn-white"
+                onClick={() =>
+                  setSeeDetails({
+                    ...seeDetails,
+                    [vacancy.id]: !seeDetails[vacancy.id],
+                  })
+                }
+              >
+                {seeDetails[vacancy.id] ? 'Ocultar' : 'Ver detalhes'}
+              </button>
+              <button
+                className="btn-black"
+                onClick={() => applyVacancy(vacancy.id)}
+              >
+                Candidatar
+              </button>
             </div>
           </div>
         </div>
