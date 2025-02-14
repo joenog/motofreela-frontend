@@ -1,0 +1,24 @@
+.header {
+  height: 53px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background-color: white;
+  padding: 8px 16px;
+}
+
+.logoMotoca {
+  width: 80px;
+}
+
+.profileImage {
+  height: 26px;
+  border-radius: 40px;
+  background-color: #1f1f1f;
+}
+
+.iconsMenu {
+  display: flex;
+  gap: 13px;
+}

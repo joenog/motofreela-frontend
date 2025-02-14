@@ -7,6 +7,7 @@ import { EsqueciMinhaSenha } from './src/pages/login/esqueci-minha-senha';
 import { RecuperarSenha } from './src/pages/login/recuperar-senha';
 import { Register } from './src/pages/register';
 import { NotFound } from './src/pages/notFound';
+import { IndexBusiness } from './src/pages/index(business)';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: '*',
     element: <NotFound />,
+  },
+  {
+    path: '/index-business',
+    element: <IndexBusiness />,
   },
 
   {

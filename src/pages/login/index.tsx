@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { Header } from '../../components/header';
 
 import './assets/styles/login.css';
 
@@ -87,6 +88,7 @@ export function Login() {
   return (
     <>
       <Loading isLoading={isLoading} />
+      <Header />
       <div className="login">
         <div className="container">
           <form onSubmit={handleSubmit}>

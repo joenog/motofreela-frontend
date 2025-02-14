@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import styles from './index.module.css';
-import { FaHome, FaNetworkWired, FaUser } from 'react-icons/fa';
+import styles from './menu.module.css';
+import { FaHome, FaBoxOpen, FaUser } from 'react-icons/fa';
 
 export function FloatingMenu() {
   return (
@@ -13,7 +13,7 @@ export function FloatingMenu() {
           </Link>
           <Link className={styles.btnMenu} to={''}>
             {' '}
-            <FaNetworkWired size={30} />{' '}
+            <FaBoxOpen size={30} />{' '}
           </Link>
           <Link className={styles.btnMenu} to={''}>
             {' '}
