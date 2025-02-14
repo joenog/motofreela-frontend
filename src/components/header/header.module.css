@@ -1,11 +1,20 @@
 .header {
-  height: 53px;
   display: flex;
+  height: 53px;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   background-color: white;
   padding: 8px 16px;
+}
+
+.headerFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
 }
 
 .logoMotoca {

@@ -6,29 +6,30 @@ import { FaBell } from 'react-icons/fa';
 
 export function Header() {
   return (
-    <header className={headerStyle.header}>
-      <Link to={'/'}>
-        <img
-          className={headerStyle.logoMotoca}
-          src={logoMotoca}
-          alt="Logo Motoca"
-        />
-      </Link>
-
-      <div className={headerStyle.iconsMenu}>
-        <Link to={'/kk'}>
+    <div className={headerStyle.headerFixed}>
+      <header className={headerStyle.header}>
+        <Link to={'/'}>
           <img
-            className={headerStyle.profileImage}
-            src={profileImage}
-            alt="Profile"
+            className={headerStyle.logoMotoca}
+            src={logoMotoca}
+            alt="Logo Motoca"
           />
         </Link>
-        <div className={headerStyle.profileContainer}>
-          <Link to={'/notificacoes'} className={headerStyle.notificationIcon}>
-            <FaBell size={24} />
+        <div className={headerStyle.iconsMenu}>
+          <Link to={'/kk'}>
+            <img
+              className={headerStyle.profileImage}
+              src={profileImage}
+              alt="Profile"
+            />
           </Link>
+          <div className={headerStyle.profileContainer}>
+            <Link to={'/notificacoes'} className={headerStyle.notificationIcon}>
+              <FaBell size={24} />
+            </Link>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }

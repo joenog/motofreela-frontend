@@ -3,14 +3,12 @@ import { Dispatch } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Header } from '../../components/header';
 
 import './assets/styles/login.css';
 
 import logoGoogle from '../../assets/images/google_img.png';
 import * as actionsAuth from '../../store/modules/auth/actionsCreatores';
 import Loading from '../../components/Loading';
-import { FloatingMenu } from '../../components/floartingMenu';
 
 export function Login() {
   const dispatch: Dispatch<any> = useDispatch();
@@ -88,7 +86,6 @@ export function Login() {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <Header />
       <div className="login">
         <div className="container">
           <form onSubmit={handleSubmit}>
@@ -137,7 +134,6 @@ export function Login() {
           </span>
         </div>
       </div>
-      <FloatingMenu />
     </>
   );
 }
