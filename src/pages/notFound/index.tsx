@@ -7,9 +7,10 @@ export function NotFound() {
     <>
       <main className={notFound.container}>
         <img className={notFound.imgError} src={motoPacotesError} alt="" />
-        <h1></h1>
-        <h2>Caminho errado, tente algo diferente :/</h2>
-        <Link className={notFound.link} to={'/'}>
+        <h2 className={notFound.textNotFound}>
+          Caminho errado, tente algo diferente :/
+        </h2>
+        <Link className={notFound.linkInicio} to={'/'}>
           Ir ao ínicio
         </Link>
       </main>

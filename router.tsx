@@ -8,6 +8,7 @@ import { RecuperarSenha } from './src/pages/login/recuperar-senha';
 import { Register } from './src/pages/register';
 import { NotFound } from './src/pages/notFound';
 import { IndexMotoboy } from './src/pages/index (motoboy)';
+import { IndexBusiness } from './src/pages/index(business)';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
         children: [
           { path: '/', element: <Home /> },
           { path: '/index-motoboy', element: <IndexMotoboy /> },
+          { path: '/index-business', element: <IndexBusiness />},
         ],
       },
     ],

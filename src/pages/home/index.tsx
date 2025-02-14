@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './styles.module.css';
+import styles from './home.module.css';
 import '../../styles/globalStyle.css';
 import imgMoto from './images/home-moto-pacotes.png';
 import logoMotoca from './images/logo-motoca.png';
