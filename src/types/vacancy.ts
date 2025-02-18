@@ -3,9 +3,10 @@ export default interface Vacancy {
   price: number;
   additional: string;
   benefits: string;
-  business_id: number;
   status: string;
   time: string;
+  description: string;
+  business_id: number;
   created_at: string;
   updated_at: string;
 }

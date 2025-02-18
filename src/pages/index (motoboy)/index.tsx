@@ -165,11 +165,7 @@ export function IndexMotoboy() {
                 <p className="description">
                   <span style={{ fontWeight: 'bold' }}>Descrição:</span>
                   <br />
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Cumque quis doloribus laudantium recusandae excepturi
-                  temporibus deleniti, minima voluptates sequi similique commodi
-                  doloremque nam a dolore provident consequuntur quod porro
-                  iste!
+                  {vacancy.description}
                 </p>
               ) : null}
             </div>
