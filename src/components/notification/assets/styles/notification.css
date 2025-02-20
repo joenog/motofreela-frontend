@@ -1,0 +1,114 @@
+.notification {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  justify-content: flex-end;
+  padding: 0px 10px 0px 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  bottom: 0;
+  display: flex;
+  z-index: -10;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+
+  .notificationContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: start;
+    text-align: start;
+    background-color: #fff;
+    padding: 0px;
+    border-radius: 8px;
+    width: 350px;
+    height: 85%;
+    max-height: 85%;
+    overflow: auto;
+    margin-top: -680px;
+    z-index: -10;
+    transition: margin-top 0.5s ease-in-out;
+
+    .notificationItem {
+      display: grid;
+      grid-template-columns: 1fr 0.1fr;
+      margin-top: 15px;
+      width: 100%;
+      padding: 8px;
+      box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.25);
+      font-size: 15px;
+
+      .iconDelete {
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 22px;
+        color: black;
+        margin-top: 0px;
+        box-shadow: none;
+        cursor: pointer;
+      }
+    }
+
+    .iconClose {
+      top: 60px;
+      left: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      color: black;
+      border-radius: 4px;
+      padding: 5px;
+      font-size: 15px;
+      box-shadow: none;
+      width: 30px;
+      cursor: pointer;
+    }
+  }
+
+  .iconNotification {
+    position: absolute;
+    top: 10px;
+    margin-right: 2px;
+    cursor: pointer;
+    background-color: #fff;
+    color: black;
+    border-radius: 4px;
+    padding: 5px;
+  }
+
+  .notificationVoid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 50%;
+    margin-top: 10%;
+  }
+
+  .notificationVoid img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    margin-top: 50px;
+  }
+}
+
+.notification.active {
+  opacity: 1;
+  z-index: 11;
+  top: 0;
+
+  .notificationContent {
+    margin-top: 60px;
+    transition: margin-top 0.5s ease-in-out;
+  }
+}
+
+

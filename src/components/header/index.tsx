@@ -1,35 +1,32 @@
 import logoMotoca from '../../assets/images/motoca-red.png';
 import headerStyle from './header.module.css';
-import profileImage from '../../assets/images/user-profile.jpg';
 import { Link } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
+import Notification from '../notification/notification';
+import { useState } from 'react';
 
 export function Header() {
+  const [showNotification, setShowNotification] = useState(false);
   return (
-    <div className={headerStyle.headerFixed}>
-      <header className={headerStyle.header}>
-        <Link to={'/'}>
-          <img
-            className={headerStyle.logoMotoca}
-            src={logoMotoca}
-            alt="Logo Motoca"
-          />
-        </Link>
-        <div className={headerStyle.iconsMenu}>
-          <Link to={'/kk'}>
+    <>
+      <Notification showNotificaton={showNotification} />
+      <div className={headerStyle.headerFixed}>
+        <header className={headerStyle.header}>
+          <Link to={'/'}>
             <img
-              className={headerStyle.profileImage}
-              src={profileImage}
-              alt="Profile"
+              className={headerStyle.logoMotoca}
+              src={logoMotoca}
+              alt="Logo Motoca"
             />
           </Link>
-          <div className={headerStyle.profileContainer}>
-            <Link to={'/notificacoes'} className={headerStyle.notificationIcon}>
-              <FaBell size={24} />
-            </Link>
+          <div className={headerStyle.iconsMenu}>
+            <FaBell
+              size={24}
+              onClick={() => setShowNotification(!showNotification)}
+            />
           </div>
-        </div>
-      </header>
-    </div>
+        </header>
+      </div>
+    </>
   );
 }
