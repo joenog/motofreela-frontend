@@ -25,11 +25,11 @@ export default function Notification({
   useEffect(() => {
     async function getData() {
       try {
-        if (!user)
-          return dispatch(actionsAuth.loginFailure('Faça login novamente!'));
-
-        if (!user.business) {
-          const response = await axios.get(`/notification-motoboy/${user.id}`);
+        if (!user?.business) {
+          const response = await axios.get(`/notification-motoboy/${user?.id}`);
+          setNotification(response.data);
+        } else if (user?.business) {
+          const response = await axios.get(`/notification-business/${user.id}`);
           setNotification(response.data);
         }
       } catch (error: any) {
@@ -39,13 +39,18 @@ export default function Notification({
       }
     }
     getData();
-  });
+  }, [user?.id, user?.business, dispatch]);
 
   async function handleDelete(id: number) {
     if (!id) return;
     try {
-      await axios.delete(`/notification-motoboy/${id}`);
-      setNotification(notification.filter((item) => item.id !== id));
+      if (!user?.business) {
+        await axios.delete(`/notification-motoboy/${id}`);
+        setNotification(notification.filter((item) => item.id !== id));
+      } else {
+        await axios.delete(`/notification-business/${id}`);
+        setNotification(notification.filter((item) => item.id !== id));
+      }
     } catch (error: any) {
       if (error.response.status === 401) {
         dispatch(actionsAuth.loginFailure('Faça login novamente!'));

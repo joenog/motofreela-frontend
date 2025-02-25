@@ -31,3 +31,10 @@
   display: flex;
   gap: 13px;
 }
+
+.infoNotification {
+  position: fixed;
+  right: 35px;
+  top: 30px;
+  color: red;
+}

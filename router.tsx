@@ -2,13 +2,14 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from './src/components/Layout';
 import { Home } from './src/pages/home';
 import { Login } from './src/pages/login';
-import { PrivateRoute } from './src/components/PrivateRoute';
+import { PrivateRouteBusiness } from './src/components/PrivateRouteBusiness';
 import { EsqueciMinhaSenha } from './src/pages/login/esqueci-minha-senha';
 import { RecuperarSenha } from './src/pages/login/recuperar-senha';
 import { Register } from './src/pages/register';
 import { NotFound } from './src/pages/notFound';
 import { IndexMotoboy } from './src/pages/index (motoboy)';
 import { IndexBusiness } from './src/pages/index(business)';
+import { PrivateRouteMotoboy } from './src/components/PrivateRouteMotoboy';
 
 const router = createBrowserRouter([
   {
@@ -40,12 +41,20 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        element: <PrivateRoute />,
+        element: <PrivateRouteBusiness />,
         children: [
           { path: '/', element: <Home /> },
-          { path: '/index-motoboy', element: <IndexMotoboy /> },
           { path: '/index-business', element: <IndexBusiness /> },
         ],
+      },
+    ],
+  },
+  {
+    element: <Layout />,
+    children: [
+      {
+        element: <PrivateRouteMotoboy />,
+        children: [{ path: '/index-motoboy', element: <IndexMotoboy /> }],
       },
     ],
   },

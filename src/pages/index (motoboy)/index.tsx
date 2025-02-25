@@ -26,7 +26,6 @@ export function IndexMotoboy() {
   useEffect(() => {
     async function getData() {
       if (!user) return <Navigate to={'/login'} />;
-      if (user.business) return <Navigate to={'/index-business'} />;
       try {
         setIsLoading(true);
         const [responseVacancy, responseBusiness] = await Promise.all([
