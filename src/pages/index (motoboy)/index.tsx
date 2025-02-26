@@ -1,70 +1,32 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useDispatch, useSelector } from 'react-redux';
-import './assets/styles/style.css';
-import { State } from '../../types/state';
+import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Dispatch } from 'redux';
 import { FaGift, FaImage, FaMoneyBillWave, FaStar } from 'react-icons/fa';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md';
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { Dispatch } from 'redux';
+import Swal from 'sweetalert2';
 
 import * as actionsAuth from '../../store/modules/auth/actionsCreatores';
 
 import Loading from '../../components/Loading';
-import Swal from 'sweetalert2';
+
+import { State } from '../../types/state';
 import axios from '../../services/axios';
-import Vacancy from '../../types/vacancy';
-import UserBusiness from '../../types/userBusiness';
+import useBusinessData from '../../hooks/useBusinessData';
+import useVacancyData from '../../hooks/useVacancyData';
+import filtrarUserBusinessPorId from '../../utils/filtrarBusinessPorId';
+import './assets/styles/style.css';
+
 export function IndexMotoboy() {
   const dispatch: Dispatch<any> = useDispatch();
   const user = useSelector((state: State) => state.login.isLoggedin.user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [vacancy, setVacancy] = useState<Vacancy[]>([]);
-  const [business, setBusiness] = useState<UserBusiness[]>([]);
   const [seeDetails, setSeeDetails] = useState<boolean[]>([]);
+  const business = useBusinessData().businesses;
 
-  useEffect(() => {
-    async function getData() {
-      if (!user) return <Navigate to={'/login'} />;
-      try {
-        setIsLoading(true);
-        const [responseVacancy, responseBusiness] = await Promise.all([
-          axios.get('/vacancy'),
-          axios.get('/user-business/readAll'),
-        ]);
-        setVacancy(responseVacancy.data);
-        setBusiness(responseBusiness.data);
-        setIsLoading(false);
-      } catch (error: any) {
-        if (error.response.status === 401) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Por favor, faça login novamente!',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              return dispatch(
-                actionsAuth.loginFailure('Faça login novamente!'),
-              );
-            }
-          });
-          setIsLoading(false);
-        }
-      }
-    }
-    getData();
-  }, [dispatch, user]);
-
-  function filtrarBusiness(
-    bussines_id: number,
-    business: UserBusiness[] | undefined,
-  ): UserBusiness | undefined {
-    if (!business) return undefined;
-    const businessFiltrado = business.find(
-      (business) => business.id === bussines_id,
-    );
-    return businessFiltrado;
-  }
+  if (!user) return <Navigate to="/login" />;
 
   async function applyVacancy(vacancy_id: number) {
     if (!vacancy_id) return;
@@ -113,26 +75,33 @@ export function IndexMotoboy() {
 
   return (
     <div className="index-motoboy">
-      <Loading isLoading={isLoading} />
-      {vacancy.map((vacancy) => (
+      <Loading isLoading={useVacancyData().isLoading || isLoading} />
+      {useVacancyData().vacancies.map((vacancy) => (
         <div className="vacancy-container" key={vacancy.id}>
           <div className="info-restaurant">
             <div className="logo-restaurant">
-              {filtrarBusiness(vacancy.business_id, business)?.photoURL ? (
+              {filtrarUserBusinessPorId(vacancy.business_id, business)
+                ?.photoURL ? (
                 <img
-                  src={filtrarBusiness(vacancy.business_id, business)?.photoURL}
+                  src={
+                    filtrarUserBusinessPorId(vacancy.business_id, business)
+                      ?.photoURL
+                  }
                   alt="logo-restaurant"
                 />
               ) : (
                 <FaImage size={150} />
               )}
             </div>
-            <p>{filtrarBusiness(vacancy.business_id, business)?.name}</p>
+            <p>
+              {filtrarUserBusinessPorId(vacancy.business_id, business)?.name}
+            </p>
             <div className="rating-restaurant">
               <span>
                 {Array.from({
                   length:
-                    filtrarBusiness(vacancy.business_id, business)?.stars || 0,
+                    filtrarUserBusinessPorId(vacancy.business_id, business)
+                      ?.stars || 0,
                 }).map((_, i) => (
                   <FaStar key={i} size={15} />
                 ))}
@@ -142,8 +111,11 @@ export function IndexMotoboy() {
             <div className="description-vacancy">
               <p className="title-vacancy">
                 <MdLocationOn size={15} />
-                {filtrarBusiness(vacancy.business_id, business)?.city} -{' '}
-                {filtrarBusiness(vacancy.business_id, business)?.state}
+                {
+                  filtrarUserBusinessPorId(vacancy.business_id, business)?.city
+                }{' '}
+                -{' '}
+                {filtrarUserBusinessPorId(vacancy.business_id, business)?.state}
               </p>
 
               <p className="time">
