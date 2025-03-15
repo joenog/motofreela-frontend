@@ -1,9 +1,9 @@
 export default interface Vacancy {
   id: number;
-  price: number;
+  price: string;
   additional: string;
   benefits: string;
-  status: string;
+  status: 'Pendente' | 'Finalizada';
   time: string;
   description: string;
   business_id: number;

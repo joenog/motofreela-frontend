@@ -25,12 +25,22 @@ export function Header() {
     }
     totalNotificacoes();
   }, [user?.business, user?.id]);
+
+  console.log(!user);
   return (
     <>
       <Notification showNotificaton={showNotification} />
       <div className={headerStyle.headerFixed}>
         <header className={headerStyle.header}>
-          <Link to={'/'}>
+          <Link
+            to={
+              user?.id === 0
+                ? '/'
+                : user?.business
+                  ? '/index-business'
+                  : '/index-motoboy'
+            }
+          >
             <img
               className={headerStyle.logoMotoca}
               src={logoMotoca}

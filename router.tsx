@@ -10,6 +10,7 @@ import { NotFound } from './src/pages/notFound';
 import { IndexMotoboy } from './src/pages/index (motoboy)';
 import { IndexBusiness } from './src/pages/index(business)';
 import { PrivateRouteMotoboy } from './src/components/PrivateRouteMotoboy';
+import RelatoriosMotoboy from './src/pages/relatorios(motoboy)';
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,10 @@ const router = createBrowserRouter([
     children: [
       {
         element: <PrivateRouteMotoboy />,
-        children: [{ path: '/index-motoboy', element: <IndexMotoboy /> }],
+        children: [
+          { path: '/index-motoboy', element: <IndexMotoboy /> },
+          { path: '/relatorios-motoboy', element: <RelatoriosMotoboy /> },
+        ],
       },
     ],
   },
